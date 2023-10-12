@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Esplanade</title>
-    <link rel="icon" href="justLogoWhite.ico" type="image/x-icon">
+    <link rel="icon" href="justLogoWhite.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,7 +20,7 @@
       }
 
       body {
-        background-image: url("tealPurple169-2.png");
+        background-image: url("bg.mp4");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -63,6 +63,19 @@
         font-size: var(--footer-text-size); /* Apply the relative text size */
       }
 
+      #bgVideo {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1000;
+        transform: translateX(-50%) translateY(-50%);
+        background-size: cover;
+      }
+
       @media (max-width: 768px) {
         :root {
           --logo-size: 300px;
@@ -77,6 +90,10 @@
         <img src="espWhite.png" alt="Your Logo" class="logo" />
       </a>
     </header>
+    <video id="bgVideo" autoplay muted loop>
+      <source src="bg.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
     <div class="social-icons">
       <a href="https://www.instagram.com/esplanade.ai/">
         <img src="Instagram.png" alt="Instagram" />
