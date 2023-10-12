@@ -11,67 +11,80 @@
       rel="stylesheet"
     />
     <style>
-      /* Set background image and styles for the body */
+      :root {
+        --logo-size: 850px;
+      }
+
       body {
         background-image: url("tealPurple169-2.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        background-position: center;
       }
-      /* Styles for the header */
+
       header {
-        position: relative;
-        text-align: center; /* Center-align the contents within the header */
-        padding: 450px; /* Adjust padding as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
       }
-      /* Styles for the logo */
+
       .logo {
-        max-width: 850px; /* Adjust the maximum width of the logo as needed */
-        position: center; /* Set the positioning type to absolute */
+        max-width: var(--logo-size);
+        width: 100%;
       }
-      /* Styles for the social icons */
+
       .social-icons {
-        position: absolute; /* Center-align the social icons */
+        position: absolute;
         top: 20px;
         right: 20px;
       }
-      .social-icons a {
-        display: inline-block; /* Make the social icons appear in a line */
-        margin: 10px; /* Add spacing between social icons */
+
+      .social-icons img {
+        width: calc(
+          0.5 * var(--logo-size) / 7
+        ); /* 50% smaller relative to the logo */
       }
-      /* Styles for the footer */
+
+      .social-icons a {
+        display: inline-block;
+        margin: 10px;
+      }
+
       footer {
-        text-align: center; /* Center-align the contents within the footer */
-        padding: 10px; /* Adjust padding as needed */
-        color: #fff; /* Text color for the copyright notice */
+        text-align: center;
+        padding: 10px;
+        color: #fff;
         font-family: "Red Hat Mono", monospace;
+      }
+
+      @media (max-width: 768px) {
+        :root {
+          --logo-size: 300px;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <!-- Logo -->
       <a href="index">
-        <img src="esplanadeWhiteFINAL(4).png" alt="Your Logo" class="logo" />
+        <img src="espWhite.png" alt="Your Logo" class="logo" />
       </a>
     </header>
-    <!-- Social Media Icons -->
     <div class="social-icons">
-      <a href="https://www.instagram.com/esplanade.ai/"
-        ><img src="Instagram.png" alt="Instagram"
-      /></a>
-      <a href="https://www.linkedin.com/company/esplanade-ai"
-        ><img src="linkedin.png" alt="Linkedin"
-      /></a>
-      <!-- Add more social icons as needed -->
+      <a href="https://www.instagram.com/esplanade.ai/">
+        <img src="Instagram.png" alt="Instagram" />
+      </a>
+      <a href="https://www.linkedin.com/company/esplanade-ai">
+        <img src="linkedin.png" alt="Linkedin" />
+      </a>
     </div>
-    <!-- Footer -->
     <footer>&copy; 2023 Esplanade.ai. All rights reserved.</footer>
     <div id="bpw-layout"></div>
 
     <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
     <script>
-      // Initialize the Botpress Web Chat
       window.botpressWebChat.init({
         composerPlaceholder: "Chat with bot",
         botId: "85b1b118-8d95-47f7-b0bb-ed43f2ec7230",
@@ -83,7 +96,6 @@
       });
     </script>
     <script>
-      // Render the Botpress Web Chat into the specified layout
       (function (bp) {
         bp.DEFAULTS.platform = "web";
         bp.DEFAULTS.embedded = true;
