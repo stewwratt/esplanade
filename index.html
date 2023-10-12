@@ -1,90 +1,94 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Esplanade</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:ital,wght@0,600;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:ital,wght@0,600;1,700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        /* Set background image and styles for the body */
-        body {
-            background-image: 'tealPurple169-2.png';
-            background-size: cover; 
-            background-repeat: no-repeat; 
-            background-attachment: fixed;
-        }
-        /* Styles for the header */
-        header { 
-            position: relative;
-            text-align: center; /* Center-align the contents within the header */
-            padding: 450px; /* Adjust padding as needed */
-        }
-        /* Styles for the logo */
-        .logo {
-            max-width: 850px; /* Adjust the maximum width of the logo as needed */
-            position: center; /* Set the positioning type to absolute */
-        }
-        /* Styles for the social icons */
-        .social-icons {
-            position: absolute; /* Center-align the social icons */
-            top: 20px;
-            right: 20px; 
-        }
-        .social-icons a {
-            display: inline-block; /* Make the social icons appear in a line */
-            margin: 10px; /* Add spacing between social icons */
-        }
-        /* Styles for the footer */
-        footer {
-            text-align: center; /* Center-align the contents within the footer */
-            padding: 10px; /* Adjust padding as needed */
-            color: #fff; /* Text color for the copyright notice */
-            font-family: 'Red Hat Mono', monospace;
-        }
+      /* Set background image and styles for the body */
+      body {
+        background-image: url("tealPurple169-2");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      /* Styles for the header */
+      header {
+        position: relative;
+        text-align: center; /* Center-align the contents within the header */
+        padding: 450px; /* Adjust padding as needed */
+      }
+      /* Styles for the logo */
+      .logo {
+        max-width: 850px; /* Adjust the maximum width of the logo as needed */
+        position: center; /* Set the positioning type to absolute */
+      }
+      /* Styles for the social icons */
+      .social-icons {
+        position: absolute; /* Center-align the social icons */
+        top: 20px;
+        right: 20px;
+      }
+      .social-icons a {
+        display: inline-block; /* Make the social icons appear in a line */
+        margin: 10px; /* Add spacing between social icons */
+      }
+      /* Styles for the footer */
+      footer {
+        text-align: center; /* Center-align the contents within the footer */
+        padding: 10px; /* Adjust padding as needed */
+        color: #fff; /* Text color for the copyright notice */
+        font-family: "Red Hat Mono", monospace;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <!-- Logo -->
-        <a href="Host">
-            <img src="esplanadeWhiteFINAL(4).png" alt="Your Logo" class="logo">
-        </a>
+      <!-- Logo -->
+      <a href="Host">
+        <img src="esplanadeWhiteFINAL(4).png" alt="Your Logo" class="logo" />
+      </a>
     </header>
     <!-- Social Media Icons -->
     <div class="social-icons">
-        <a href="https://www.instagram.com/esplanade.ai/"><img src="Instagram.png" alt="Instagram"></a>
-        <a href="https://www.linkedin.com/company/esplanade-ai"><img src="linkedin.png" alt="Linkedin"></a>
-        <!-- Add more social icons as needed -->
+      <a href="https://www.instagram.com/esplanade.ai/"
+        ><img src="Instagram.png" alt="Instagram"
+      /></a>
+      <a href="https://www.linkedin.com/company/esplanade-ai"
+        ><img src="linkedin.png" alt="Linkedin"
+      /></a>
+      <!-- Add more social icons as needed -->
     </div>
     <!-- Footer -->
-    <footer>
-        &copy; 2023 Esplanade.ai. All rights reserved.
-    </footer>
+    <footer>&copy; 2023 Esplanade.ai. All rights reserved.</footer>
     <div id="bpw-layout"></div>
-   
+
     <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
     <script>
-        // Initialize the Botpress Web Chat
-        window.botpressWebChat.init({
-            "composerPlaceholder": "Chat with bot",
-            "botId": "85b1b118-8d95-47f7-b0bb-ed43f2ec7230",
-            "hostUrl": "https://cdn.botpress.cloud/webchat/v0",
-            "messagingUrl": "https://messaging.botpress.cloud",
-            "clientId": "85b1b118-8d95-47f7-b0bb-ed43f2ec7230",
-            "stylesheet": "https://webchat-styler-css.botpress.app/prod/255d6c2c-8ef9-481f-9c17-11de649d9c3c/v32485/style.css"
-        });
+      // Initialize the Botpress Web Chat
+      window.botpressWebChat.init({
+        composerPlaceholder: "Chat with bot",
+        botId: "85b1b118-8d95-47f7-b0bb-ed43f2ec7230",
+        hostUrl: "https://cdn.botpress.cloud/webchat/v0",
+        messagingUrl: "https://messaging.botpress.cloud",
+        clientId: "85b1b118-8d95-47f7-b0bb-ed43f2ec7230",
+        stylesheet:
+          "https://webchat-styler-css.botpress.app/prod/255d6c2c-8ef9-481f-9c17-11de649d9c3c/v32485/style.css",
+      });
     </script>
     <script>
-        // Render the Botpress Web Chat into the specified layout
-        (function(bp) {
-            bp.DEFAULTS.platform = 'web';
-            bp.DEFAULTS.embedded = true;
-            bp.renderHtmlInto("#bpw-layout");
-        })(window.botpressWebChat);
+      // Render the Botpress Web Chat into the specified layout
+      (function (bp) {
+        bp.DEFAULTS.platform = "web";
+        bp.DEFAULTS.embedded = true;
+        bp.renderHtmlInto("#bpw-layout");
+      })(window.botpressWebChat);
     </script>
-</body>
+  </body>
 </html>
-
-
