@@ -18,13 +18,26 @@
           var(--logo-size) / 50
         ); /* Set the footer text size relative to the logo size */
       }
+      /* For WebKit browsers (e.g., Chrome, Safari) */
+      ::-webkit-scrollbar {
+        width: 10px; /* Adjust width as needed */
+      }
+
+      ::-webkit-scrollbar-track {
+        background-image: url("tealPurple169-2.png");
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: rgb(255, 255, 255); /* Semi-transparent scrollbar thumb */
+        border-radius: 10px; /* Rounded corners */
+      }
 
       body {
         background-image: url("bg.mp4");
         background-size: cover;
-        background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center;
+        scrollbar-color: rgba(0, 0, 0, 0.5) transparent; /* Semi-transparent thumb on a transparent track */
       }
 
       header {
