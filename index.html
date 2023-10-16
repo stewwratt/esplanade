@@ -194,6 +194,11 @@
         width: 100%;
       }
 
+      .footer-logo {
+        margin-top: 15px;
+        margin-left: 5px;
+      }
+
       .address-contact {
         display: flex;
         justify-content: space-between;
@@ -239,7 +244,7 @@
           --footer-text-size: calc(var(--logo-size) / 30);
         }
 
-        /* .footer-logo {
+        .footer-logo {
           width: 100%;
           text-align: left;
         }
@@ -247,13 +252,13 @@
         .address-contact {
           width: 100%;
           margin-top: 10px;
+        }
 
-          /* Adjusted this value */
-
-        /* Remove divider on mobile */
-        /* .footer-divider {
-          display: none;
-        } */
+        .address-contact > div:last-child {
+          position: absolute;
+          right: 0;
+          /* Position it 25% from the right edge */
+        }
 
         .translucent-section .large-text {
           font-size: 1.5rem;
