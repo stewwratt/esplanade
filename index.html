@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:ital,wght@0,600;1,700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="output.css" />
     <style>
       :root {
         --logo-size: 600px;
@@ -63,20 +64,12 @@
       }
 
       .social-icons img {
-        width: calc(0.5 * var(--logo-size) / 5);
+        width: calc(0.5 * var(--logo-size) / 8);
       }
 
       .social-icons a {
         display: inline-block;
         margin: 10px;
-      }
-
-      footer {
-        text-align: center;
-        padding: 10px;
-        color: #fff;
-        font-family: "Red Hat Mono", monospace;
-        font-size: var(--footer-text-size); /* Apply the relative text size */
       }
 
       #bgVideo {
@@ -90,13 +83,6 @@
         z-index: -1000;
         transform: translateX(-50%) translateY(-50%);
         background-size: cover;
-      }
-
-      @media (max-width: 768px) {
-        :root {
-          --logo-size: 300px;
-          --footer-text-size: calc(var(--logo-size) / 30);
-        }
       }
 
       .contact-form {
@@ -136,6 +122,140 @@
       .contact-form button:hover {
         background-color: #555;
       }
+
+      footer {
+        display: flex;
+        flex-direction: column; /* Stack the rows vertically */
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+        color: #fff;
+        font-family: "Red Hat Mono";
+        font-size: var(--footer-text-size); /* Apply the relative text size */
+      }
+      footer .footer-row > div:first-child img {
+        width: 50px; /* Adjust this value to your desired size */
+        max-width: 100%;
+      }
+      footer .footer-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      /* Address & Contact */
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .address-contact {
+        display: flex;
+        justify-content: space-between;
+        width: 50%; /* Adjust this value if needed */
+      }
+
+      .address-contact > div {
+        text-align: left;
+      }
+
+      /* Divider */
+      .footer-row .address-contact::after {
+        content: "";
+        display: block;
+        height: 1px;
+        background-color: #fff; /* Adjust color as needed */
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .footer-row .address-contact::after {
+        display: none;
+      }
+
+      /* Add a new style for the divider */
+      .footer-divider {
+        width: 100%;
+        height: 1px;
+        background-color: #fff; /* Adjust color as needed */
+        margin: 10px 0; /* Add some margin for spacing */
+      }
+
+      @media (max-width: 768px) {
+        :root {
+          --logo-size: 300px;
+          --footer-text-size: calc(var(--logo-size) / 30);
+        }
+
+        footer .footer-row {
+          flex-direction: column;
+        }
+
+        .address-contact {
+          width: 100%;
+          margin-top: 10px;
+
+          /* Adjusted this value */
+        }
+
+        /* Remove divider on mobile */
+        .footer-divider {
+          display: none;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .fade {
+        animation-name: fadeIn;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+      }
+
+      .fade-out-0 {
+        animation-delay: 0.5s;
+      }
+
+      .fade-out-1 {
+        animation-delay: 1s;
+      }
+
+      .fade-out-2 {
+        animation-delay: 1.5s;
+      }
+
+      .fade-out-3 {
+        animation-delay: 2s;
+      }
+
+      .fade-out-4 {
+        animation-delay: 2.5s;
+      }
+
+      .fade-out-5 {
+        animation-delay: 3s;
+      }
+
+      .fade-out-6 {
+        animation-delay: 3.5s;
+      }
+
+      .fade-out-7 {
+        animation-delay: 4s;
+      }
+
+      .fade-out-8 {
+        animation-delay: 4.5s;
+      }
     </style>
   </head>
   <body>
@@ -144,6 +264,31 @@
         <img src="espWhite.png" alt="Your Logo" class="logo" />
       </a>
     </header>
+    <div class="py-10 flex items-center justify-center bg-gray-900">
+      <div class="mx-auto text-center">
+        <div
+          class="text-xl md:text-4xl text-white font-bold py-8 space-y-3 md:space-y-10"
+        >
+          <div class="inline-block">
+            <span class="square fade fade-out-0">Step into </span>
+            <span class="square fade fade-out-1">the future with </span>
+          </div>
+          <div class="inline-block">
+            <span class="square fade fade-out-2">Esplanade AI. </span>
+            <span class="square fade fade-out-3">Revolutionize </span>
+          </div>
+          <div class="inline-block">
+            <span class="square fade fade-out-4">your business </span>
+            <span class="square fade fade-out-5">operations and </span>
+          </div>
+          <div class="inline-block">
+            <span class="square fade fade-out-6">experience </span>
+            <span class="square fade fade-out-7">unparalleled </span>
+            <span class="square fade fade-out-8">efficiency. </span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="contact-form">
       <form action="path_to_your_server_script" method="post">
@@ -175,7 +320,6 @@
         <img src="linkedin.png" alt="Linkedin" />
       </a>
     </div>
-    <footer>&copy; 2023 Esplanade.ai. All rights reserved.</footer>
     <div id="bpw-layout"></div>
 
     <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
@@ -197,5 +341,40 @@
         bp.renderHtmlInto("#bpw-layout");
       })(window.botpressWebChat);
     </script>
+
+    <footer>
+      <!-- First Row: Logo and Address/Contact -->
+      <div class="footer-row">
+        <!-- Logo -->
+        <div>
+          <img src="justLogoWhite.png" alt="Esplanade Logo" />
+        </div>
+        <!-- Address & Contact -->
+        <div class="address-contact">
+          <div>
+            <strong>Address</strong>
+            <p>Sydney, AUS</p>
+          </div>
+          <div>
+            <strong>Contact</strong>
+            <p>Email: digital@esplanade.ai</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="footer-divider"></div>
+
+      <!-- Second Row: Copyright and Links -->
+      <div class="footer-row">
+        <!-- Copyright -->
+        <div>&copy; 2023 Esplanade.ai. All rights reserved.</div>
+        <!-- Links -->
+        <div>
+          <a href="#">T&Cs</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
