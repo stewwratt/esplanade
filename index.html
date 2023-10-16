@@ -13,6 +13,16 @@
     />
     <link rel="stylesheet" href="output.css" />
     <style>
+      * {
+        font-family: "Red Hat Display", sans-serif;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+      }
+
       :root {
         --logo-size: 600px;
         --footer-text-size: calc(
@@ -21,7 +31,7 @@
       }
       /* For WebKit browsers (e.g., Chrome, Safari) */
       ::-webkit-scrollbar {
-        width: 10px; /* Adjust width as needed */
+        width: 0px; /* Adjust width as needed */
       }
 
       ::-webkit-scrollbar-track {
@@ -85,11 +95,44 @@
         background-size: cover;
       }
 
+      .translucent-section {
+        background-color: rgba(255, 255, 255, 0.061);
+        padding: 0;
+        width: 100%;
+        position: relative;
+        margin: 0;
+        z-index: 1;
+        margin-bottom: 100px; /* Added whitespace below the translucent section */
+      }
+
+      .translucent-section .centered-content {
+        max-width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .translucent-section .large-text {
+        font-size: 2rem;
+        color: #fff;
+        padding: 20px 0;
+        line-height: 1.5;
+      }
+
+      .translucent-section .large-text .square {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .translucent-section .large-text .purple-text {
+        color: rgb(224, 191, 255);
+      }
+
       .contact-form {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 20px; /* Adjust as needed */
+        margin-bottom: 100px; /* Added whitespace below the translucent section */
       }
 
       .contact-form form {
@@ -204,6 +247,10 @@
         .footer-divider {
           display: none;
         }
+
+        .translucent-section .large-text {
+          font-size: 1.5rem;
+        }
       }
 
       @keyframes fadeIn {
@@ -264,24 +311,24 @@
         <img src="espWhite.png" alt="Your Logo" class="logo" />
       </a>
     </header>
-    <div class="py-10 flex items-center justify-center bg-gray-900">
-      <div class="mx-auto text-center">
-        <div
-          class="text-xl md:text-4xl text-white font-bold py-8 space-y-3 md:space-y-10"
-        >
-          <div class="inline-block">
+    <div class="translucent-section">
+      <div class="centered-content">
+        <div class="large-text">
+          <div>
             <span class="square fade fade-out-0">Step into </span>
             <span class="square fade fade-out-1">the future with </span>
           </div>
-          <div class="inline-block">
-            <span class="square fade fade-out-2">Esplanade AI. </span>
-            <span class="square fade fade-out-3">Revolutionize </span>
+          <div>
+            <span class="square fade fade-out-2 purple-text"
+              >Esplanade AI.
+            </span>
+            <span class="square fade fade-out-3">Revolutionise </span>
           </div>
-          <div class="inline-block">
+          <div>
             <span class="square fade fade-out-4">your business </span>
             <span class="square fade fade-out-5">operations and </span>
           </div>
-          <div class="inline-block">
+          <div>
             <span class="square fade fade-out-6">experience </span>
             <span class="square fade fade-out-7">unparalleled </span>
             <span class="square fade fade-out-8">efficiency. </span>
