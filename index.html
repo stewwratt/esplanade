@@ -98,6 +98,40 @@
           --footer-text-size: calc(var(--logo-size) / 30);
         }
       }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px; /* Adjust as needed */
+      }
+
+      .contact-form form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Spacing between form elements */
+        width: 300px; /* Adjust as needed */
+      }
+
+      .contact-form input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .contact-form button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .contact-form button:hover {
+        background-color: #555;
+      }
     </style>
   </head>
   <body>
@@ -106,6 +140,16 @@
         <img src="espWhite.png" alt="Your Logo" class="logo" />
       </a>
     </header>
+
+    <div class="contact-form">
+      <form action="path_to_your_server_script" method="post">
+        <input type="text" name="fullname" placeholder="Full Name" required />
+        <input type="tel" name="number" placeholder="Phone Number" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
     <div>
       <video
         id="bgVideo"
