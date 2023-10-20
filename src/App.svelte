@@ -1,5 +1,32 @@
 <script lang='ts'>
   import { animate, stagger } from 'motion';
+  import { db } from './lib/firebase.js'; 
+  import { collection, addDoc } from "firebase/firestore";
+
+  let fullname = '';
+  let number = '';
+  let email = '';
+
+  async function handleSubmit(event) {
+    console.log("submit")
+    event.preventDefault();
+
+    const data = {
+        fullname: event.target.fullname.value,
+        number: event.target.number.value,
+        email: event.target.email.value
+    };
+
+    console.log("data", data)
+
+    try {
+        console.log("try")  
+        const docRef = await addDoc(collection(db, 'contacts'), data);
+        console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+        console.error("Error adding document: ", error);
+    }
+}
   
   function animateText(element: HTMLDivElement) {
     const text = element.innerText.trim().split(' ');
@@ -23,15 +50,12 @@
     setTimeout(() => {
       childrenArray.forEach(child => {
         const childText = (child as HTMLElement).textContent.trim();
-        if (childText === "Esplanade" || childText.includes("AI")) {
-          animate(child, { color: '#d28cd1', 
-          fontSize: '1.05em', // Makes the text slightly larger
-          // fontWeight: '' // Makes the text bold
-          }, 
+        if (childText === "unparalleled" || childText.includes("efficiency")) {
+          animate(child, { color: '#d28cd1'}, 
           { duration: 1});
         }
       });
-    }, (text.length * 0.3 + 3) * 800);
+    }, (text.length * 0.3 + 3) * 650);
 
   }
 </script>
@@ -50,7 +74,7 @@
 </div>
 
 <div class="contact-form">
-  <form action="path_to_your_server_script" method="post">
+  <form on:submit={handleSubmit}>
     <input type="text" name="fullname" placeholder="Full Name" required />
     <input type="tel" name="number" placeholder="Phone Number" required />
     <input type="email" name="email" placeholder="Email Address" required />
