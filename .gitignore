@@ -1,4 +1,12 @@
-/node_modules/
-/public/build/
+# Ignore node_modules directory
+node_modules/
 
-.DS_Store
+# Ignore log files
+*.log
+
+# Ignore the .env file
+.env
+
+# Ignore OS generated files
+.DS_Store  # macOS
+Thumbs.db  # Windows
