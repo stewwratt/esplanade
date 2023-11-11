@@ -7,7 +7,4 @@ const app = new App({
   },
 });
 
-const createAssistant = require("./openai");
-
-
 export default app;

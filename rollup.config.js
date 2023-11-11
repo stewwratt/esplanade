@@ -7,6 +7,8 @@ import livereload from "rollup-plugin-livereload";
 import css from "rollup-plugin-css-only";
 import replace from "@rollup/plugin-replace";
 import sveltePreprocess from "svelte-preprocess";
+import json from "@rollup/plugin-json";
+import polyfillNode from "rollup-plugin-polyfill-node";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -80,6 +82,8 @@ export default {
     // If we're building for production (npm run build
     // instead of npm run dev), minify
     production && terser(),
+    json(),
+    polyfillNode(),
   ],
   watch: {
     clearScreen: false,

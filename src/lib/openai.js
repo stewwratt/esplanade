@@ -1,9 +1,9 @@
 //import required dependencies
-require("dotenv").config();
+import dotenv from "dotenv";
 import OpenAI from "openai";
 import readline from "readline";
 
-// dotenv.config();
+dotenv.config();
 
 const readLineInterface = readline.createInterface({
   input: process.stdin,
@@ -28,7 +28,7 @@ async function main() {
   try {
     const assistant = await openai.beta.assistants.create({
       name: "Esplanade Assistant",
-      instructions: "You are an AI appointment setter consultant",
+      instructions: "You are an AI appointment setter consultant with the goal of creating rapore and setting an appointment with the customer.",
       tools: [{ type: "code_interpreter" }],
       model: "gpt-3.5-turbo-1106",
     });
@@ -86,12 +86,15 @@ async function main() {
         // Extracting and displaying the text content of the assistant's message
         const assistantResponse = lastMessageForRun.content[0].text.value;
         console.log("Assistant says: " + assistantResponse);
+      } else {
+        // If no assistant message is found, console.log() a message
+        console.log("No assistant message found");
       }
 
       const continueAsking = await askQuestion(
         "Do you have another question? (y/n)"
       );
-      keepAsking = continueAsking.toLowerCase() === "yes";
+      keepAsking = continueAsking.toLowerCase() === "y";
 
       // if the keepAsking is falsy then show an ending message
       if (!keepAsking) {

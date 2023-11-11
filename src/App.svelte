@@ -142,8 +142,8 @@
   <div class="footer-row">
     <div>&copy; 2023 Esplanade.ai. All rights reserved.</div>
     <div>
-      <a href="#">T&Cs</a>
-      <a href="#">Privacy Policy</a>  
+      <a href="/terms-and-conditions">T&Cs</a>
+      <a href="/privacy-policy">Privacy Policy</a>
     </div>
   </div>
 </footer>
