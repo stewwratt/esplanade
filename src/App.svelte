@@ -3,7 +3,7 @@
   import { db } from './lib/firebase.js'; 
   import { collection, addDoc } from "firebase/firestore";
   import ChatAssistant from './components/ChatAssistant.svelte';
-  import createAssistant from './lib/openai.js';
+  // import createAssistant from './lib/openai.js';
 
   let fullname = '';
   let number = '';

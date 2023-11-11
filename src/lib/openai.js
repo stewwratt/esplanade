@@ -1,9 +1,9 @@
 //import required dependencies
-import dotenv from "dotenv";
+require("dotenv").config();
 import OpenAI from "openai";
 import readline from "readline";
 
-dotenv.config();
+// dotenv.config();
 
 const readLineInterface = readline.createInterface({
   input: process.stdin,
@@ -105,29 +105,4 @@ async function main() {
 
 main();
 
-//import required dependencies
-import dotenv from "dotenv";
-import OpenAI from "openai";
 
-dotenv.config();
-
-// create openai connection
-const secretKey = process.env.OPENAI_SECRET_KEY;
-const openai = new OpenAI({
-    apiKey: secretKey,
-});
-
-async function askQuestion(question) {
-    const prompt = `The following is a conversation with an AI assistant. The assistant helps you with your programming tasks. \n\nUser: ${question}\nAI:`;
-    const completions = await openai.complete({
-        engine: "davinci",
-        prompt,
-        maxTokens: 1024,
-        n: 1,
-        stop: "\n",
-    });
-    const message = completions.choices[0].text.trim();
-    return message;
-}
-
-export default askQuestion;
