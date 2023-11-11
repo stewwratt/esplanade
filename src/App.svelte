@@ -2,6 +2,8 @@
   import { animate, stagger } from 'motion';
   import { db } from './lib/firebase.js'; 
   import { collection, addDoc } from "firebase/firestore";
+  import ChatAssistant from './components/ChatAssistant.svelte';
+  import createAssistant from './lib/openai.js';
 
   let fullname = '';
   let number = '';
@@ -9,13 +11,14 @@
 
   async function handleSubmit(event) {
     console.log("submit")
-    event.preventDefault();
+    event.preventDefault(); 
 
     const data = {
         fullname: event.target.fullname.value,
         number: event.target.number.value,
         email: event.target.email.value
     };
+    
 
     console.log("data", data)
 
@@ -26,6 +29,19 @@
     } catch (error) {
         console.error("Error adding document: ", error);
     }
+    
+    // need to figure
+    try {
+      const userName = document.getElementById('userName').value;
+
+      // Call the createAssistant function with the user's name
+      await createAssistant(userName);
+    } catch {
+      console.error('Error creating assistant');
+    }
+
+    
+ 
 }
   
   function animateText(element: HTMLDivElement) {
@@ -96,6 +112,10 @@
   <a href="https://www.linkedin.com/company/esplanade-ai">
     <img src="/linkedin.png" alt="Linkedin" />
   </a>
+</div>
+
+<div>
+  <!-- <ChatAssistant /> -->
 </div>
 
 <div id="bpw-layout"></div>
