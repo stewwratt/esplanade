@@ -4,7 +4,6 @@
   import type { Writable } from 'svelte/store';
   import { writable } from 'svelte/store';
   import { marked } from 'marked';
-  import { current_component, merge_ssr_styles } from 'svelte/internal';
 
   export let firstname: string;
   const messages: Writable<Array<{ sender: string; content: string; opacity: number, isHtml: boolean}>> = writable([]);
@@ -14,7 +13,7 @@
   let threadId: string = '';
   let awaitingResponse: boolean = false;
   let hasUserMessages = false; // Flag to track if there are user messages
-
+  let chatInput; // Variable to hold the reference to the chat input element
 
   onMount(async () => {
     console.log("onMount")
@@ -30,6 +29,10 @@
       } else {
         console.error("Failed to start a new thread");
       }
+    }
+
+    if (chatInput) {
+      chatInput.focus();
     }
   });
 
@@ -48,13 +51,35 @@
   //   setTimeout(scrollToLatestMessage, 0);
   // }
 
+  $: if (awaitingResponse) {
+    setTimeout(scrollToBottom, 500);
+  }
+
+  // Reactive statement to scroll the latest assistant message into view
+  $: {
+    if ($messages.length && $messages[$messages.length - 1].sender === 'Assistant') {
+      setTimeout(() => {
+        const messages = document.querySelectorAll('.message.assistant');
+        const lastMessage = messages[messages.length - 1];
+        lastMessage?.scrollIntoView({ behavior: 'smooth' });
+      }, 0); // Adjust delay as needed
+    }
+  }
+
   // Function to scroll to the bottom of the chat
   function scrollToBottom() {
     const chatContainer = document.querySelector('.messages');
     if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
     }
   }
+
+  // function scrollToLatestMessage() {
+  //   const chatContainer = document.querySelector('.messages');
+  //   if (chatContainer) {
+  //     chatContainer.scrollTo({ top: document.querySelector('message').scrollIntoView, behavior: 'smooth' });
+  //   }
+  // }
 
   function centerChatContainer() {
     console.log("centerChatContainer");
@@ -218,9 +243,9 @@
   }
 
   .chat-container {
-    max-width: 600px;
+    max-width: 728px;
     margin: 20px auto;
-    padding: 10px;
+    padding: 20px;
     background-color: #ffffff00; /* Translucent background */
     border-radius: 8px;
     /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); Soft shadow for depth */
@@ -247,14 +272,32 @@
   }
 
   .message-placeholder {
-    color: #cccccc; /* Light grey color for placeholder text */
+    color: rgba(255, 255, 255, 0.7); /* Light grey color for placeholder text */
     font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative; /* Set to relative to position the pseudo-element */
+  }
+
+  @keyframes typingDots {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+    100% { content: ''; }
+  }
+
+  .message-placeholder::after {
+    content: '';
+    position: absolute;
+    /* right: 10; Position the dots at the end of the text */
+    animation: typingDots 1.5s steps(4, end) infinite; /* Apply the animation */
   }
 
   .messages {
     height: auto; /* Initial height */
     max-height: 500px; /* Initial max height, adjust as needed */
-    transition: max-height 0.5s ease-in-out; /* Smooth transition for height */
+    transition: max-height 2s ease-in-out; /* Smooth transition for height */
     overflow-y: auto;
     margin-top: 10px;
     padding: 10px;
@@ -285,6 +328,7 @@
     font-weight: bold;
     color: white;
     opacity: 1; /* Full opacity for the initial assistant message */
+    margin-top: 10px;
   }
 
   /* Style for the user's message */
@@ -359,6 +403,16 @@
   .send-button::before {
     content: '➡️'; /* Replace with your icons */
   }
+
+  @media (max-width: 768px) {
+    .chat-container {
+      margin-bottom: 100px;
+    }
+
+    .messages {
+      font-size: 1.2em;
+    }
+  }
 </style>
 
 <div class="chat-container"
@@ -379,13 +433,14 @@
       </div>
     {/each}
     {#if awaitingResponse}
-      <div class="message-placeholder">Typing...</div>
+      <div class="message-placeholder">Typing</div>
     {/if}
   </div>
   <div class="chat-input-container">
     <!-- Replace with actual file upload icon once available -->
     <!-- <img src='../fileUploadIcon.png' class="file-upload-icon" on:click={triggerFileUpload} /> -->
     <input
+      bind:this={chatInput}
       class="chat-input"
       bind:value={userInput}
       placeholder="Start typing or upload a file..."

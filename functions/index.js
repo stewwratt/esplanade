@@ -4,7 +4,7 @@ const cors = require("cors")({origin: true});
 
 // Initialize OpenAI with your API key
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 // Function to start a new thread
