@@ -407,11 +407,9 @@
   @media (max-width: 768px) {
     .chat-container {
       margin-bottom: 100px;
+      font-size: 1.2rem;
     }
 
-    .messages {
-      font-size: 1.2em;
-    }
   }
 </style>
 
