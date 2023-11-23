@@ -352,12 +352,12 @@
 
   @media (max-width: 768px) {
     :root {
-      --logo-size: 300px;
-      --footer-text-size: calc(var(--logo-size) / 30);
+      --logo-size: 400px;
+      --footer-text-size: calc(var(--logo-size) / 40);
     }
 
     .translucent-section {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
 
     .footer-logo {

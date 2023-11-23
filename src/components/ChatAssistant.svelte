@@ -14,6 +14,7 @@
   let awaitingResponse: boolean = false;
   let hasUserMessages = false; // Flag to track if there are user messages
   let chatInput; // Variable to hold the reference to the chat input element
+  let isMobile: boolean;
 
   onMount(async () => {
     console.log("onMount")
@@ -28,12 +29,21 @@
         console.log("Thread ID set:", threadId); // Add this line
       } else {
         console.error("Failed to start a new thread");
+        console.error("Response status:", response.status);
       }
+    }
+
+
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile && chatInput) {
+      chatInput.focusInput();
     }
 
     if (chatInput) {
       chatInput.focus();
     }
+
   });
 
   // Reactive statement for scrolling to bottom when messages update
@@ -71,6 +81,19 @@
     const chatContainer = document.querySelector('.messages');
     if (chatContainer) {
       chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+    }
+  }
+
+  function focusInput() {
+    if (isMobile && chatInput) {
+      chatInput.focus();
+
+      // Delay the scroll adjustment to allow for keyboard appearance
+      setTimeout(() => {
+        const yOffset = -20; // Adjust this value as needed
+        const y = chatInput.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 300); // Adjust this delay as needed
     }
   }
 
@@ -407,7 +430,14 @@
   @media (max-width: 768px) {
     .chat-container {
       margin-bottom: 100px;
-      font-size: 1.2rem;
+    }
+
+    .messages {
+      font-size: 1.2em;
+    }
+
+    .chat-input {
+      font-size: 1.2em;
     }
 
   }
@@ -437,7 +467,7 @@
   <div class="chat-input-container">
     <!-- Replace with actual file upload icon once available -->
     <!-- <img src='../fileUploadIcon.png' class="file-upload-icon" on:click={triggerFileUpload} /> -->
-    <input
+   <input
       bind:this={chatInput}
       class="chat-input"
       bind:value={userInput}

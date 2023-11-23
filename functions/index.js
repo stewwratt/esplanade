@@ -4,7 +4,7 @@ const cors = require("cors")({origin: true});
 
 // Initialize OpenAI with your API key
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 // Function to start a new thread
@@ -13,6 +13,7 @@ exports.startNewThread = functions.https.onRequest(async (req, res) => {
     try {
       // Create a new thread
       const thread = await openai.beta.threads.create();
+      // eslint-disable-next-line object-curly-spacing
       res.json({threadId: thread.id});
     } catch (error) {
       console.error("Error creating new thread:", error);
@@ -64,7 +65,10 @@ exports.getAssistantResponse = functions.https.onRequest(async (req, res) => {
     try {
       while (!completed) {
         // eslint-disable-next-line max-len
-        const runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
+        const runStatus = await openai.beta.threads.runs.retrieve(
+            threadId,
+            runId,
+        );
         if (runStatus.status === "completed") {
           const messages = await openai.beta.threads.messages.list(threadId);
           const lastMessage = messages.data.find((m) => m.role === "assistant");
