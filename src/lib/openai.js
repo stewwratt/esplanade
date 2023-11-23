@@ -28,7 +28,8 @@ async function main() {
   try {
     const assistant = await openai.beta.assistants.create({
       name: "Esplanade Assistant",
-      instructions: "You are an AI appointment setter consultant with the goal of creating rapore and setting an appointment with the customer.",
+      instructions:
+        "You are an AI appointment setter consultant with the goal of creating rapore and setting an appointment with the customer.",
       tools: [{ type: "code_interpreter" }],
       model: "gpt-3.5-turbo-1106",
     });
@@ -79,7 +80,7 @@ async function main() {
         )
         .pop();
 
-    //   console.log(lastMessageForRun);
+      //   console.log(lastMessageForRun);
 
       // If an assistant message is found, console.log() it
       if (lastMessageForRun && lastMessageForRun.content) {
@@ -107,5 +108,3 @@ async function main() {
 }
 
 main();
-
-

@@ -8,7 +8,7 @@ import css from "rollup-plugin-css-only";
 import replace from "@rollup/plugin-replace";
 import sveltePreprocess from "svelte-preprocess";
 import json from "@rollup/plugin-json";
-import polyfillNode from "rollup-plugin-polyfill-node";
+import polyfillNode from 'rollup-plugin-polyfill-node';
 
 const production = !process.env.ROLLUP_WATCH;
 

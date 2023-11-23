@@ -3,15 +3,29 @@
   import { db } from './lib/firebase.js'; 
   import { collection, addDoc } from "firebase/firestore";
   import ChatAssistant from './components/ChatAssistant.svelte';
-  // import createAssistant from './lib/openai.js';
+  import { createEventDispatcher } from 'svelte';
+
+
+
 
   let fullname = '';
   let number = '';
   let email = '';
+  let formSubmitted = false; //change to false for prod
+  let firstname = ''; // Will hold the extracted first name
+  const dispatch = createEventDispatcher();
+
+
+  function capitaliseFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
 
   async function handleSubmit(event) {
     console.log("submit")
     event.preventDefault(); 
+
+    fullname = event.target.fullname.value;
+    firstname = capitaliseFirstLetter(fullname.split(' ')[0]);
 
     const data = {
         fullname: event.target.fullname.value,
@@ -29,18 +43,18 @@
     } catch (error) {
         console.error("Error adding document: ", error);
     }
-    
-    // need to figure
-    try {
-      const userName = document.getElementById('userName').value;
 
-      // Call the createAssistant function with the user's name
-      await createAssistant(userName);
-    } catch {
-      console.error('Error creating assistant');
-    }
+    formSubmitted = true;
+    dispatch('formSubmitted');
+    // // need to figure
+    // try {
+    //   const userName = document.getElementById('userName').value;
 
-    
+    //   // Call the createAssistant function with the user's name
+    //   await createAssistant(userName);
+    // } catch {
+    //   console.error('Error creating assistant');
+    // }
  
 }
   
@@ -89,15 +103,6 @@
   experience unparalleled efficiency.
 </div>
 
-<div class="contact-form">
-  <form on:submit={handleSubmit}>
-    <input type="text" name="fullname" placeholder="Full Name" required />
-    <input type="tel" name="number" placeholder="Phone Number" required />
-    <input type="email" name="email" placeholder="Email Address" required />
-    <button type="submit">Submit</button>
-  </form>
-</div>
-
 <div>
   <video id="bgVideo" autoplay muted loop playsinline poster="tealPurple169-2.png">
     <source src="/siteBGcont2.mp4" type="video/mp4" />
@@ -114,9 +119,22 @@
   </a>
 </div>
 
-<div>
-  <!-- <ChatAssistant /> -->
-</div>
+{#if !formSubmitted}
+  <div class="contact-form">
+    <form on:submit={handleSubmit}>
+      <div class="contact-form">
+        <form on:submit={handleSubmit}>
+          <input type="text" name="fullname" placeholder="Full Name" required />
+          <input type="tel" name="number" placeholder="Phone Number" required />
+          <input type="email" name="email" placeholder="Email Address" required />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </form>
+  </div>
+{:else if formSubmitted}
+  <ChatAssistant {firstname}/>
+{/if}
 
 <div id="bpw-layout"></div>
 
