@@ -4,7 +4,7 @@ const cors = require("cors")({origin: true});
 
 // Initialize OpenAI with your API key
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 // Function to start a new thread
@@ -14,7 +14,7 @@ exports.startNewThread = functions.https.onRequest(async (req, res) => {
       // Create a new thread
       const thread = await openai.beta.threads.create();
       // eslint-disable-next-line object-curly-spacing
-      res.json({threadId: thread.id});
+      res.json({ threadId: thread.id });
     } catch (error) {
       console.error("Error creating new thread:", error);
       res.status(500).send("Internal Server Error");
