@@ -11,7 +11,7 @@
   let fullname = '';
   let number = '';
   let email = '';
-  let formSubmitted = false; //change to false for prod
+  let formSubmitted = true; //change to false for prod
   let firstname = ''; // Will hold the extracted first name
   const dispatch = createEventDispatcher();
 
@@ -168,7 +168,7 @@
 
 <style>
   :root {
-    --logo-size: 600px;
+    --logo-size: 800px;
     --footer-text-size: calc(var(--logo-size) / 50);
   }
 
@@ -184,6 +184,8 @@
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
   }
+
+  
 
   :global(body) {
     margin: 0;
