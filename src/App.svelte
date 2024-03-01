@@ -11,8 +11,9 @@
   let fullname = '';
   let number = '';
   let email = '';
-  let formSubmitted = true; //change to false for prod
+  let formSubmitted = false; //change to false for prod
   let firstname = ''; // Will hold the extracted first name
+  let threadId: string = ''; // Will hold the thread ID
   const dispatch = createEventDispatcher();
 
 
@@ -24,13 +25,26 @@
     console.log("submit")
     event.preventDefault(); 
 
+    const response = await fetch('https://us-central1-esplanade-46a07.cloudfunctions.net/startNewThread');
+    if (response.ok) {
+      const data = await response.json();
+      threadId = data.threadId;
+      console.log("Thread ID set:", threadId); // Add this line
+
+    } else {
+      console.error("Failed to start a new thread");
+      console.error("Response status:", response.status);
+    }
+
     fullname = event.target.fullname.value;
     firstname = capitaliseFirstLetter(fullname.split(' ')[0]);
 
     const data = {
         fullname: event.target.fullname.value,
         number: event.target.number.value,
-        email: event.target.email.value
+        email: event.target.email.value,
+        threadId: threadId,
+        date: Date.now(),
     };
     
 
@@ -127,13 +141,13 @@
           <input type="text" name="fullname" placeholder="Full Name" required />
           <input type="tel" name="number" placeholder="Phone Number" required />
           <input type="email" name="email" placeholder="Email Address" required />
-          <button type="submit">Submit</button>
+          <button type="submit">Instant Demonstration</button>
         </form>
       </div>
     </form>
   </div>
 {:else if formSubmitted}
-  <ChatAssistant {firstname}/>
+  <ChatAssistant {firstname} {threadId}/>
 {/if}
 
 <div id="bpw-layout"></div>

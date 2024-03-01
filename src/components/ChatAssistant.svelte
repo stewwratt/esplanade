@@ -7,33 +7,39 @@
   import { marked } from 'marked';
 
   export let firstname: string;
+  export let threadId: string;
   const messages: Writable<Array<{ sender: string; content: string; opacity: number, isHtml: boolean}>> = writable([]);
   let chatActive: boolean = true; //think about how this can be initialised onSubmit of the contact form or something
   let userInput: string = '';
   let isDragging: boolean = false;
-  let threadId: string = '';
+  // let threadId: string = '';
   let awaitingResponse: boolean = false;
   let hasUserMessages = false; // Flag to track if there are user messages
   let chatInput: HTMLTextAreaElement; // Variable to hold the reference to the chat input element
   let isMobile: boolean;
 
+  let production: boolean = true;
+  let sendMessageUrl: string;
+  let getAssistantResponseUrl: string;
 
+  
   onMount(async () => {
     console.log("onMount")
 
-    if (chatActive) {
+    // if (chatActive) {
       chatInput.focus();
-      messages.set([{ sender: 'Assistant', content: `<p style="font-weight:bold;">Hi ${firstname}, how are you today?</p>`, opacity: 1, isHtml: true }]);
-      const response = await fetch('https://us-central1-esplanade-46a07.cloudfunctions.net/startNewThread');
-      if (response.ok) {
-        const data = await response.json();
-        threadId = data.threadId;
-        console.log("Thread ID set:", threadId); // Add this line
-      } else {
-        console.error("Failed to start a new thread");
-        console.error("Response status:", response.status);
-      }
-    }
+      messages.set([{ sender: 'Assistant', content: `<p style="font-weight:bold;">Hi ${firstname},  It's Mason your digital consultant from Esplanade AI. How are you today?</p>`, opacity: 1, isHtml: true }]);
+      // const response = await fetch('https://us-central1-esplanade-46a07.cloudfunctions.net/startNewThread');
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     threadId = data.threadId;
+    //     console.log("Thread ID set:", threadId); // Add this line
+
+    //   } else {
+    //     console.error("Failed to start a new thread");
+    //     console.error("Response status:", response.status);
+    //   }
+    // }
 
 
     isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -45,8 +51,20 @@
     // if (chatInput) {
     //   chatInput.focus();
     // }
-
+    productionSettings();
   });
+
+  function productionSettings() {
+    if (production) {
+      console.log("production settings")
+      sendMessageUrl = 'https://us-central1-esplanade-46a07.cloudfunctions.net/sendMessageToThread';
+      getAssistantResponseUrl = 'https://us-central1-esplanade-46a07.cloudfunctions.net/getAssistantResponse';
+    } else {
+      console.log("dev settings")
+      sendMessageUrl = 'http://localhost:5001/esplanade-46a07/us-central1/sendMessageToThread';
+      getAssistantResponseUrl = 'http://localhost:5001/esplanade-46a07/us-central1/getAssistantResponse';
+    }
+  }
 
   // Reactive statement for scrolling to bottom when messages update
   // need to fine tune this either 
@@ -72,6 +90,24 @@
 
   $: if (awaitingResponse) {
     setTimeout(scrollToBottom, 200);
+  }
+
+  // Function to update links in messages
+  function updateLinks() {
+    const messagesContainer = document.querySelector('.messages');
+    if (messagesContainer) {
+      const links = messagesContainer.querySelectorAll('a');
+      links.forEach(link => {
+        if (!link.hasAttribute('target')) {
+          link.setAttribute('target', '_blank');
+        }
+      });
+    }
+  }
+
+  // Reactive statement to update links when messages change
+  $: if ($messages) {
+    updateLinks();
   }
 
   async function autoGrow() {
@@ -215,7 +251,7 @@
     awaitingResponse = true; // Set awaitingResponse to true before sending the message
 
     try {
-        const response = await fetch('https://us-central1-esplanade-46a07.cloudfunctions.net/sendMessageToThread', {
+        const response = await fetch(sendMessageUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ threadId, message: $messages[$messages.length - 1].content })
@@ -241,7 +277,7 @@
     console.log("Requesting response from OpenAI...");
 
     try {
-      const response = await fetch(`https://us-central1-esplanade-46a07.cloudfunctions.net/getAssistantResponse?threadId=${threadId}&runId=${runId}`);
+      const response = await fetch(`${getAssistantResponseUrl}?threadId=${threadId}&runId=${runId}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -506,6 +542,12 @@
       background-color: rgba(255, 255, 255, 0.4); /* Slightly more visible on hover */
   }
 
+  .chat-link {
+    color: #d28cd1;
+    text-decoration: underline; /* Add underlines to links (you can customize this) */
+    cursor: pointer; /* Change cursor to pointer on hover for better UX */
+  }
+
   .file-upload {
     display: none;
   }
@@ -547,6 +589,10 @@
     color:#ffffff;
   }
 
+  a {
+    color: #d28cd1;
+  }
+
   @media (max-width: 768px) {
     .chat-container {
       margin-bottom: 100px;
@@ -580,7 +626,7 @@
       </span>
       <div class={`message ${message.sender.toLowerCase()}`} style="opacity: {message.opacity}">
         {#if message.isHtml}
-          {@html message.content}
+          {@html message.content.replace(/<a /g, '<a style="color: #d28cd1;" ')}
         {:else}
           {@html marked.parse(message.content)}
         {/if}
